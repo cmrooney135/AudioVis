@@ -1,7 +1,7 @@
 # DSP Final Project
 # Emily Ninestein, Carol Rooney, Alec Benedict
 
-# How to take real time fft
+# How to take real time fft (carol)
 
 # How to draw shapes with fft (emily)
 
