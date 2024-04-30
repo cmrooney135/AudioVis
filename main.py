@@ -8,5 +8,4 @@
 # Design filter to get color from signal
 # Design filter to get line thickness
 
-# Filtering noise?
-
+# Filtering noise
