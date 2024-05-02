@@ -21,6 +21,7 @@ from scipy.signal import find_peaks
 from scipy import signal
 from pydub import AudioSegment
 from pydub.playback import play
+
 filename = 'lib/fuzz.wav'
 
 #code to play song
