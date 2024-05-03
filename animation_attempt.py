@@ -1,79 +1,71 @@
-# Python Turtle - Morphing Algorithm - www.101computing.net/python-turtle-morphing-algorithm/
-import turtle
-import random
-from time import sleep
+import numpy as np
+from pytweening import easeOutQuad
+import matplotlib.pyplot as plt
+from matplotlib import animation
 
-myPen = turtle.Turtle()
-myPen.hideturtle()
-myPen.tracer(0)
-myPen.speed(0)
-window = turtle.Screen()
-window.bgcolor("#000000")
-myPen.pensize(4)
+# Define the number of points for the shapes
+num_points = 100
 
+# Create points for shape1 (square)
+square_side = 2
+half_side = square_side / 2
+square_x = np.concatenate((np.linspace(-half_side, half_side, num_points),
+                           np.full(num_points, half_side),
+                           np.linspace(half_side, -half_side, num_points),
+                           np.full(num_points, -half_side)))
+square_y = np.concatenate((np.full(num_points, half_side),
+                           np.linspace(half_side, -half_side, num_points),
+                           np.full(num_points, -half_side),
+                           np.linspace(-half_side, half_side, num_points)))
+shape1 = np.column_stack((square_x, square_y))
 
-def morphing(letter1, letter2, t, fontSize, color, x, y):
-    myPen.color(color)
-    letter1 = letter1.upper()
-    letter2 = letter2.upper()
-    myPen.penup()
-    myPen.goto(x, y)
-    myPen.pendown()
+# Create points for shape2 (circle) with the same number of points as shape1
+theta_circle = np.linspace(0, 2*np.pi, 4*num_points)  # Increase the number of points
+circle_x = np.cos(theta_circle)
+circle_y = np.sin(theta_circle)
+shape2 = np.column_stack((circle_x, circle_y))
 
-    # Check that the characters belong to the Alphabet
-    if shape1 in circles and shape2 in circles:
-        letter1Coordinates = alphabet[letter1]
-        letter2Coordinates = alphabet[letter2]
+duration = 0.0348  # Duration in seconds
 
-        dots = []
+# Calculate the frame rate needed to achieve at least 5 frames
+num_frames = 10
+frame_rate = int(np.ceil(num_frames / duration))
 
-        # Some letters have more nodes than others. We need to ensure they have the same number of nodes
-        if len(letter1Coordinates) > len(letter2Coordinates):
-            lastDot = letter2Coordinates[len(letter2Coordinates) - 1]
-            for i in range(0, len(letter1Coordinates) - len(letter2Coordinates)):
-                letter2Coordinates.append(lastDot)
-        elif len(letter1Coordinates) < len(letter2Coordinates):
-            lastDot = letter1Coordinates[len(letter1Coordinates) - 1]
-            for i in range(0, len(letter2Coordinates) - len(letter1Coordinates)):
-                letter1Coordinates.append(lastDot)
+# Compute intermediate shapes using easeOutQuad interpolation
+frames = []
+for i in range(num_frames):
+    t = easeOutQuad(i / num_frames)  # Use easeOutQuad function for faster movement
+    intermediate_shape = shape1 * (1 - t) + shape2 * t
+    frames.append(intermediate_shape)
 
-        numberOfDots = len(letter1Coordinates)
+# Plot the initial shapes
+plt.figure(figsize=(8, 4))
 
-        # Morphing Calculations
-        # Calculate the new interim coordinates of each node
-        for i in range(0, numberOfDots):
-            dotx = letter1Coordinates[i][0] + (letter2Coordinates[i][0] - letter1Coordinates[i][0]) * t / 10
-            doty = letter1Coordinates[i][1] + (letter2Coordinates[i][1] - letter1Coordinates[i][1]) * t / 10
-            dots.append([dotx, doty])
+plt.subplot(1, 2, 1)
+plt.plot(shape1[:, 0], shape1[:, 1], color='blue')
+plt.title('Shape 1 (Square)')
+plt.axis('equal')
 
-        # Draw the resulting morphed charcater
-        myPen.penup()
-        for dot in dots:
-            myPen.goto(x + dot[0] * fontSize, y + dot[1] * fontSize)
-            myPen.pendown()
+plt.subplot(1, 2, 2)
+plt.plot(shape2[:, 0], shape2[:, 1], color='green')
+plt.title('Shape 2 (Circle)')
+plt.axis('equal')
 
+plt.show()
 
-# Main Program Starts Here
-fontSize = 200
-fontColor = "#FF00FF"
+# Plot the animation
+plt.figure()
+line, = plt.plot([], [], color='red', label='Morphing')
+plt.plot(shape1[:, 0], shape1[:, 1], color='blue', label='Shape 1 (Square)')
+plt.plot(shape2[:, 0], shape2[:, 1], color='green', label='Shape 2 (Circle)')
+plt.legend()
 
-letter1 = "A"
-letter2 = "Z"
-while True:
-    # From A to Z in 10 steps
-    for t in range(0, 11):
-        myPen.clear()
-        morphing(letter1, letter2, t, fontSize, fontColor, -100, -100)
-        sleep(0.05)
-        myPen.getscreen().update()
+# Define update function for animation
+def update(frame):
+    line.set_data(frame[:, 0], frame[:, 1])
+    return line,
 
-    sleep(0.5)
+# Animate
+ani = animation.FuncAnimation(plt.gcf(), update, frames=frames, blit=True, interval=1000 / frame_rate, repeat=False)
 
-    # From Z to A in 10 steps
-    for t in range(0, 11):
-        myPen.clear()
-        morphing(letter2, letter1, t, fontSize, fontColor, -100, -100)
-        sleep(0.05)
-        myPen.getscreen().update()
-
-    sleep(0.5)
+plt.show()

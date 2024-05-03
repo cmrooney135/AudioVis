@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from math import gcd
 import pandas as pd
+import random
+from time import sleep
 
 
 class DrawCircles:
@@ -136,24 +138,25 @@ class DrawCircles:
         plt.show()
 
 
-# # Assuming `dataframes` is a list of pandas dataframes
-# dataframes = [
-#     pd.DataFrame({
-#         'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
-#         'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
-#         'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
-#         'time': [0.0, 0.0, 0.0, 0.0],
-#         'noise': [0.004468, 0.004468, 0.004468, 0.004468],
-#     }, ),
-#     pd.DataFrame({
-#         'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
-#         'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
-#         'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
-#         'time': [0.0, 0.0, 0.0, 0.0],
-#         'noise': [0.004468, 0.004468, 0.004468, 0.004468],
-#     }),
-# ]
 
-# # Create an instance of DrawCircles and start the animation
-# circles = DrawCircles(dataframes)
-# circles.start_animation()
+    # Assuming `dataframes` is a list of pandas dataframes
+dataframes = [
+    pd.DataFrame({
+        'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
+        'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
+        'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
+        'time': [0.0, 0.0, 0.0, 0.0],
+        'noise': [0.004468, 0.004468, 0.004468, 0.004468],
+    }, ),
+    pd.DataFrame({
+        'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
+        'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
+        'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
+        'time': [0.0, 0.0, 0.0, 0.0],
+        'noise': [0.004468, 0.004468, 0.004468, 0.004468],
+    }),
+]
+
+    # # Create an instance of DrawCircles and start the animation
+circles = DrawCircles(dataframes)
+circles.start_animation()
