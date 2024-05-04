@@ -2,7 +2,7 @@
 # Emily Ninestein, Carol Rooney, Alec Benedict
 import STFT
 import draw_circles
-import animation_attempt
+import animate
 
 filename = 'lib/fuzz.wav'
 
@@ -10,11 +10,11 @@ filename = 'lib/fuzz.wav'
 num_shapes = 4
 
 # Calculate the STFTs of the audio file, return dataframes
-dataframes = STFT.STFT(filename)
+dataframes, frequencies, overlap = STFT.STFT(filename)
 
 # Pass dataframes to draw circles, return coordinate points of drawings
 circles = draw_circles.DrawCircles(dataframes[0:num_shapes])
 drawing_coords = circles.drawings
 
 # Pass drawing coords and dataframes to animation function
-animation_attempt.animate(dataframes[0:num_shapes], drawing_coords)
+animate.animate(drawing_coords, dataframes[0:num_shapes], overlap)

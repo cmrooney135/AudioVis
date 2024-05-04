@@ -1,15 +1,16 @@
 import librosa
 import numpy as np
 import pandas as pd
-filename = 'lib/fuzz.wav'
 shape_data = []
 def STFT(filename):
+    shape_data = []
     print("STFT")
     audio_samples, sample_rate = librosa.load(filename, sr=None)
 
     n_fft = 1024
     hop_length = n_fft // 4
-    overlap = n_fft-hop_length
+    frame_duration = n_fft / sample_rate
+    overlap = frame_duration - hop_length
     #perform stft
     stft = librosa.stft(audio_samples, n_fft=n_fft, hop_length=hop_length)
     # 3634 columns in stft
@@ -40,6 +41,7 @@ def STFT(filename):
         times = dominant['time'].values
         noises = dominant['noise'].values
         shape_data.append(dominant)
+        frequencies_list = dominant['frequency'].tolist()
         #print(shape_data)
-    return (shape_data)
+    return (shape_data, frequencies_list, overlap)
 
