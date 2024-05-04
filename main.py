@@ -1,11 +1,20 @@
 # DSP Final Project
 # Emily Ninestein, Carol Rooney, Alec Benedict
+import STFT
+import draw_circles
+import animation_attempt
 
-# How to take real time fft (carol)
+filename = 'lib/fuzz.wav'
 
-# How to draw shapes with fft (emily)
+# How many frames to animate -- we can get rid of this once it's fast enough
+num_shapes = 4
 
-# Design filter to get color from signal
-# Design filter to get line thickness
+# Calculate the STFTs of the audio file, return dataframes
+dataframes = STFT.STFT(filename)
 
-# Filtering noise
+# Pass dataframes to draw circles, return coordinate points of drawings
+circles = draw_circles.DrawCircles(dataframes[0:num_shapes])
+drawing_coords = circles.drawings
+
+# Pass drawing coords and dataframes to animation function
+animation_attempt.animate(dataframes[0:num_shapes], drawing_coords)

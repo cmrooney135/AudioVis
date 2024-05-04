@@ -1,12 +1,8 @@
 import librosa
 import numpy as np
 import pandas as pd
-
-
 filename = 'lib/fuzz.wav'
-
 shape_data = []
-
 def STFT(filename):
     print("STFT")
     audio_samples, sample_rate = librosa.load(filename, sr=None)
