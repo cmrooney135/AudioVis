@@ -7,7 +7,6 @@ def STFT(filename):
     audio_samples, sample_rate = librosa.load(filename, sr=None)
     total_samples = len(audio_samples)
     audio_duration = librosa.get_duration(y=audio_samples, sr=sample_rate)
-
     print(len(audio_samples))
     n_fft = 2048
     n_stft = len(audio_samples)/n_fft
@@ -26,11 +25,10 @@ def STFT(filename):
     # 3634 columns in stft
     frequencies = librosa.fft_frequencies(sr=sample_rate, n_fft=n_fft)
 
-
-    #noise extraction
+    # noise extraction
     flatness = librosa.feature.spectral_flatness(y=audio_samples, hop_length=hop_length, n_fft=n_fft)
 
-    #number of columns in the stft
+    # number of columns in the stft
     magnitude = np.abs(stft)
     phase = np.angle(stft)
     nframes = magnitude.shape[1]
@@ -38,7 +36,7 @@ def STFT(filename):
 
     shape_data = []
     frequencies_list = []
-    #i is the current time frame number
+    # i is the current time frame number
     for i in range(nframes):
         # draw circles with emilys code
         magnitude = np.abs(stft[:, i])
@@ -51,16 +49,13 @@ def STFT(filename):
         data = data[data['magnitude'] != 0]
         data.sort_values(by='magnitude', ascending=False, inplace=True)
         dominant = data.head(4).copy()
-        #dominant['frequency'] = dominant.index * sample_rate / n_fft
+        # dominant['frequency'] = dominant.index * sample_rate / n_fft
         magnitudes = dominant['magnitude'].values
         phases = dominant['phase'].values
         times = dominant['time'].values
         noises = dominant['noise'].values
         shape_data.append(dominant)
-        #frequencies_list = dominant['frequency'].tolist()
-    #print(shape_data)
-        #print(time_of_sample)
+        # frequencies_list = dominant['frequency'].tolist()
+    # print(shape_data)
+    # print(time_of_sample)
     return (shape_data, overlap_duration, frame_duration, audio_duration)
-
-
-

@@ -8,7 +8,7 @@ from vc import animate2
 import matplotlib.pyplot as plt
 
 
-filename = 'lib/fuzz.wav'
+filename = 'lib/linear_chirp.wav'
 
 num_shapes = 20
 
@@ -37,5 +37,4 @@ drawing_coords = circles.drawings
 # Pass drawing coords and dataframes to animation function
 animations = animate(drawing_coords, shape_data, overlap_duration)
 animate2(animations, filename, overlap_duration, audio_duration)
-
 
