@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from math import gcd
-import matplotlib; matplotlib.use("TkAgg")
+#import matplotlib; matplotlib.use("TkAgg")
 
 import pandas as pd
 
@@ -51,15 +51,22 @@ class DrawCircles:
         radii = self.normalize(magnitudes, 1, 10)  # Normalize magnitudes
         angles = phases  # Use phases directly
 
+        rounded_frequencies = [round(freq) for freq in frequencies]
+        #print("Rounded Frequencies:", rounded_frequencies)
         # Calculate the overall LCM of frequencies
         overall_lcm = round(frequencies[0])
         for freq in frequencies[1:]:
             overall_lcm = self.lcm(overall_lcm, round(freq))
+        #print("Overall LCM:", overall_lcm)
 
         # Calculate the overall GCD of frequencies
-        overall_gcd = round(frequencies[0])
-        for freq in frequencies[1:]:
-            overall_gcd = gcd(overall_gcd, round(freq))
+        #overall_gcd = round(frequencies[0])
+
+        overall_gcd = gcd(*rounded_frequencies)
+        #print("Overall GCD:", overall_gcd)
+        #for freq in frequencies[1:]:
+            #overall_gcd = gcd(*[round(freq) for freq in frequencies])
+
 
         # Calculate the duration for one full iteration based on the slowest frequency
         duration = 2 * np.pi / overall_gcd  # Full rotation period for the slowest frequency
@@ -85,8 +92,8 @@ class DrawCircles:
         # Define the time step for simulation
         dt = duration / overall_lcm
 
-        if dt < 0.0005:
-            dt = 0.0005
+        if dt < 0.005:
+            dt = 0.005
 
         time = 0
 
@@ -140,23 +147,23 @@ class DrawCircles:
 
 
 # Assuming `dataframes` is a list of pandas dataframes
-dataframes = [
-    pd.DataFrame({
-        'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
-        'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
-        'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
-        'time': [0.0, 0.0, 0.0, 0.0],
-        'noise': [0.004468, 0.004468, 0.004468, 0.004468],
-    }, ),
-    pd.DataFrame({
-        'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
-        'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
-        'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
-        'time': [0.0, 0.0, 0.0, 0.0],
-        'noise': [0.004468, 0.004468, 0.004468, 0.004468],
-    }),
-]
-
-# Create an instance of DrawCircles and start the animation
-circles = DrawCircles(dataframes)
-circles.start_animation()
+# dataframes = [
+#     pd.DataFrame({
+#         'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
+#         'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
+#         'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
+#         'time': [0.0, 0.0, 0.0, 0.0],
+#         'noise': [0.004468, 0.004468, 0.004468, 0.004468],
+#     }, ),
+#     pd.DataFrame({
+#         'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
+#         'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
+#         'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
+#         'time': [0.0, 0.0, 0.0, 0.0],
+#         'noise': [0.004468, 0.004468, 0.004468, 0.004468],
+#     }),
+# ]
+#
+# # Create an instance of DrawCircles and start the animation
+# circles = DrawCircles(dataframes)
+# circles.start_animation()
