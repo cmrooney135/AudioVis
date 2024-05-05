@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from math import gcd
+import matplotlib; matplotlib.use("TkAgg")
+
 import pandas as pd
 
 # Needs to pass all of the dataframes and get all of the coordinates out
@@ -113,48 +115,48 @@ class DrawCircles:
         # Return the list of (x, y) coordinates
         return coordinates
 
-    # def update(self, frame):
-    #     """Frame update function for the animation"""
-    #     # Clear the line data
-    #     self.line.set_data([], [])
-    #
-    #     # Get the current drawing based on the frame index
-    #     current_drawing = self.drawings[frame % len(self.drawings)]
-    #
-    #     # Extract the x and y coordinates from the current drawing
-    #     x_coords, y_coords = zip(*current_drawing)
-    #
-    #     # Update the line data with the current drawing
-    #     self.line.set_data(x_coords, y_coords)
-    #
-    #     return self.line,
-    #
-    # def start_animation(self):
-    #     """Create the animation with frames cycling through the different drawings"""
-    #     ani = FuncAnimation(self.fig, self.update, frames=len(self.drawings), interval=100, blit=True)
-    #
-    #     # Show the animation
-    #     plt.show()
+    def update(self, frame):
+        """Frame update function for the animation"""
+        # Clear the line data
+        self.line.set_data([], [])
+
+        # Get the current drawing based on the frame index
+        current_drawing = self.drawings[frame % len(self.drawings)]
+
+        # Extract the x and y coordinates from the current drawing
+        x_coords, y_coords = zip(*current_drawing)
+
+        # Update the line data with the current drawing
+        self.line.set_data(x_coords, y_coords)
+
+        return self.line,
+
+    def start_animation(self):
+        """Create the animation with frames cycling through the different drawings"""
+        ani = FuncAnimation(self.fig, self.update, frames=len(self.drawings), interval=100, blit=True)
+
+        # Show the animation
+        plt.show()
 
 
-# # Assuming `dataframes` is a list of pandas dataframes
-# dataframes = [
-#     pd.DataFrame({
-#         'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
-#         'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
-#         'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
-#         'time': [0.0, 0.0, 0.0, 0.0],
-#         'noise': [0.004468, 0.004468, 0.004468, 0.004468],
-#     }, ),
-#     pd.DataFrame({
-#         'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
-#         'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
-#         'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
-#         'time': [0.0, 0.0, 0.0, 0.0],
-#         'noise': [0.004468, 0.004468, 0.004468, 0.004468],
-#     }),
-# ]
+# Assuming `dataframes` is a list of pandas dataframes
+dataframes = [
+    pd.DataFrame({
+        'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
+        'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
+        'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
+        'time': [0.0, 0.0, 0.0, 0.0],
+        'noise': [0.004468, 0.004468, 0.004468, 0.004468],
+    }, ),
+    pd.DataFrame({
+        'magnitude': [0.005907, 0.003294, 0.001658, 0.001316],
+        'phase': [-0.987585, 1.372912, -1.965995, 1.075551],
+        'frequency': [43.066406, 86.132812, 129.199219, 172.265625],
+        'time': [0.0, 0.0, 0.0, 0.0],
+        'noise': [0.004468, 0.004468, 0.004468, 0.004468],
+    }),
+]
 
-# # Create an instance of DrawCircles and start the animation
-# circles = DrawCircles(dataframes)
-# circles.start_animation()
+# Create an instance of DrawCircles and start the animation
+circles = DrawCircles(dataframes)
+circles.start_animation()
