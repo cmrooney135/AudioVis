@@ -23,5 +23,6 @@ There are many things you can edit to affect the visualizer, try changing the n_
 or mess around with the colors. 
 The result is below, FLASH WARNING of a song! 
 
-
+<p align="center">
 ![](https://github.com/cmrooney135/AudioVis/blob/main/audioVisualizer%20.gif)
+</p>
