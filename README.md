@@ -24,5 +24,6 @@ or mess around with the colors.
 The result is below, FLASH WARNING of a song! 
 
 <p align="center">
-![](https://github.com/cmrooney135/AudioVis/blob/main/audioVisualizer%20.gif)
+  <img width="460" height="300" src="[https://picsum.photos/460/300](https://github.com/cmrooney135/AudioVis/blob/main/audioVisualizer%20.gif)">
 </p>
+
