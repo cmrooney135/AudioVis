@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 
-filename = 'lib/fuzz.wav'
+filename = '../../lib/fuzz.wav'
 
 shape_data = []
 

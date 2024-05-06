@@ -46,7 +46,7 @@ def compute_stft_features(audio_file, n_fft=2048, hop_length=1024, n_mels=128):
     return df
 
 # Example usage:
-audio_file = "lib/fuzz.wav"
+audio_file = "../../lib/fuzz.wav"
 df = compute_stft_features(audio_file)
 
 print(df)

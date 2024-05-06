@@ -1,21 +1,16 @@
 # DSP Final Project
 # Emily Ninestein, Carol Rooney, Alec Benedict
-import STFT
+from src import STFT, draw_circles
 
-import draw_circles
-from vc import animate
-from vc import animate2
-import matplotlib.pyplot as plt
+from src.vc import animate
+from src.vc import animate2
 
-
-filename = 'lib/linear_chirp.wav'
+filename = '../lib/linear_chirp.wav'
 
 num_shapes = 20
 
 
-# How many frames to animate -- we can get rid of this once it's fast enough
 
-# Calculate the STFTs of the audio file, return dataframes
 shape_data, overlap_duration, frame_duration, audio_duration = STFT.STFT(filename)
 
 #print("shape data:", shape_data)

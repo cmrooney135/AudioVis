@@ -5,6 +5,7 @@ shape_data = []
 def STFT(filename):
     #print("STFT")
     audio_samples, sample_rate = librosa.load(filename, sr=None)
+    sample_rate = sample_rate / 10
     total_samples = len(audio_samples)
     audio_duration = librosa.get_duration(y=audio_samples, sr=sample_rate)
     print(len(audio_samples))
