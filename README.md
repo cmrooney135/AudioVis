@@ -23,7 +23,7 @@ There are many things you can edit to affect the visualizer, try changing the n_
 or mess around with the colors. 
 The result is below, FLASH WARNING of a song! 
 
-<p align="center">
-  <img width="460" height="300" src="[https://picsum.photos/460/300](https://github.com/cmrooney135/AudioVis/blob/main/audioVisualizer%20.gif)">
-</p>
+<div style="text-align: center;">
+    <img width="100%" src="[https://picsum.photos/460/300](https://github.com/cmrooney135/AudioVis/blob/main/audioVisualizer%20.gif">
+</div>
 
