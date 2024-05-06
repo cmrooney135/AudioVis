@@ -67,7 +67,7 @@ def animate_pair(points_pair, dataframes_pair, duration):
             #     shape2 = [(0.5 * x, 0.5 * y) for x, y in shape1]
 
         for i in range(num_frames):
-            t = (i / num_frames)
+            t = easeOutQuad(i / num_frames)
             intermediate_shape = [
                 (shape1_point[0] * (1 - t) + shape2_point[0] * t,
                  shape1_point[1] * (1 - t) + shape2_point[1] * t)
@@ -102,9 +102,11 @@ def animate2(animations, filename, overlap_duration, audio_duration):
         ax.plot(np.array(shape)[:, 0], np.array(shape)[:, 1], color=color)
         return ax,
 
+    plt.pause(10)  # Wait for 2 seconds before starting animation
+
     for frames, shape1, shape1_color, shape2, shape2_color, overlap_duration in animations:
         print("Entered animation for loop")
-        num_frames = 8
+        num_frames = 4
         audio = audio_duration
         print("overlap duration: ", overlap_duration)
         overlap = overlap_duration
@@ -113,11 +115,9 @@ def animate2(animations, filename, overlap_duration, audio_duration):
         #x1, y1 = zip(*shape1)
         #ax.plot(x1, y1, color=shape1_color, label='Shape 1')
         num_shapes_drawn += 1
-        print("overlap duration  : ", overlap_duration)
         #plt.pause(static)
         ax.clear()
         # delay between frames is interval  not the total amount of time it will take
-        print("Interval: ", interval)
         ani = animation.FuncAnimation(fig, update, frames=frames, blit=True, interval=interval, repeat=False)
 
         # Wait for animation to finish
@@ -126,7 +126,7 @@ def animate2(animations, filename, overlap_duration, audio_duration):
             if not plt.fignum_exists(fig.number):  # Check if figure is closed
                 break
             animation_finished = ani.event_source is None or ani.event_source.callbacks is None or len(ani.event_source.callbacks) == 0
-            plt.pause(0.000001)
+            plt.pause(0.1)
 
         # Clear the figure for the next animation
         plt.clf()
